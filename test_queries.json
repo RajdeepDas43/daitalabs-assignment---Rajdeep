@@ -1,0 +1,810 @@
+{
+  "evaluation_notes": "Use these queries to benchmark your RAG system. Report Recall@5 (fraction of answerable queries where the correct source email appears in the top-5 retrieved chunks), Answer Accuracy (fraction of answerable queries where the generated answer contains the reference answer), and Hallucination Rate (fraction of unanswerable queries where the system incorrectly produces a confident answer instead of stating it cannot be found). Target thresholds: Recall@5 >= 0.80, Answer Accuracy >= 0.75, Hallucination Rate <= 0.20.",
+  "metrics_to_report": [
+    "Recall@5",
+    "Answer Accuracy",
+    "Hallucination Rate"
+  ],
+  "queries": [
+    {
+      "id": "q01",
+      "query": "Who sent a budget approval request to Yvonne Griffin?",
+      "answerable": true,
+      "reference_answer": "Felix Jordan",
+      "source_emails": ["email_003.txt"],
+      "notes": "Clean email. Tests basic sender lookup by recipient name and topic."
+    },
+    {
+      "id": "q02",
+      "query": "What is the email address of Felix Jordan?",
+      "answerable": true,
+      "reference_answer": "felix.jordan@tech.io",
+      "source_emails": ["email_003.txt"],
+      "notes": "Clean email. Tests extraction of a structured metadata field."
+    },
+    {
+      "id": "q03",
+      "query": "Who did Nathan Gibson write to regarding a deadline extension?",
+      "answerable": true,
+      "reference_answer": "Rachel Hill",
+      "source_emails": ["email_008.txt"],
+      "notes": "Clean email. Tests recipient lookup filtered by topic."
+    },
+    {
+      "id": "q04",
+      "query": "What email domain does Nathan Gibson work at?",
+      "answerable": true,
+      "reference_answer": "corp.org",
+      "source_emails": ["email_008.txt"],
+      "notes": "Clean email. Tests extraction of domain from a sender address."
+    },
+    {
+      "id": "q05",
+      "query": "Who reported a technical issue to Ora Scott?",
+      "answerable": true,
+      "reference_answer": "Brian Marshall",
+      "source_emails": ["email_019.txt"],
+      "notes": "Clean email. Tests sender lookup by recipient and topic."
+    },
+    {
+      "id": "q06",
+      "query": "What subject did Wendy Mcdonald write to Kane Harris about?",
+      "answerable": true,
+      "reference_answer": "Client Feedback",
+      "source_emails": ["email_035.txt"],
+      "notes": "Clean email. Tests subject lookup given sender and recipient names."
+    },
+    {
+      "id": "q07",
+      "query": "Who received a vendor proposal from Thomas Chavez?",
+      "answerable": true,
+      "reference_answer": "Felix Rivera",
+      "source_emails": ["email_030.txt"],
+      "notes": "Clean email. Tests recipient lookup filtered by sender and topic."
+    },
+    {
+      "id": "q08",
+      "query": "What email domain does Felix Rivera work at?",
+      "answerable": true,
+      "reference_answer": "enterprise.com",
+      "source_emails": ["email_030.txt"],
+      "notes": "Clean email. Tests domain extraction from recipient address."
+    },
+    {
+      "id": "q09",
+      "query": "Who did Xander Mitchell send a performance review email to?",
+      "answerable": true,
+      "reference_answer": "Henry Howard",
+      "source_emails": ["email_040.txt"],
+      "notes": "Clean email. Tests recipient lookup by sender and topic."
+    },
+    {
+      "id": "q10",
+      "query": "Who did Carter Ward report a technical issue to?",
+      "answerable": true,
+      "reference_answer": "Kane Kelly",
+      "source_emails": ["email_045.txt"],
+      "notes": "Clean email. Tests recipient lookup by sender and topic."
+    },
+    {
+      "id": "q11",
+      "query": "What is Carter Ward's email address?",
+      "answerable": true,
+      "reference_answer": "carter.ward@business.net",
+      "source_emails": ["email_045.txt"],
+      "notes": "Clean email. Tests structured field extraction for a named person."
+    },
+    {
+      "id": "q12",
+      "query": "Who sent a vendor proposal to Anna Aguilar?",
+      "answerable": true,
+      "reference_answer": "Hope Nelson",
+      "source_emails": ["email_070.txt"],
+      "notes": "Clean email. Tests sender lookup by recipient and topic."
+    },
+    {
+      "id": "q13",
+      "query": "Who did Nia Gonzales schedule a performance review with?",
+      "answerable": true,
+      "reference_answer": "Skyler Lee",
+      "source_emails": ["email_080.txt"],
+      "notes": "Clean email. Tests recipient lookup by sender and topic."
+    },
+    {
+      "id": "q14",
+      "query": "Who sent a team announcement to Finley Patterson?",
+      "answerable": true,
+      "reference_answer": "Gray Castro",
+      "source_emails": ["email_075.txt"],
+      "notes": "Clean email. Tests sender lookup by recipient and topic."
+    },
+    {
+      "id": "q15",
+      "query": "Who did River Bryant send a vendor proposal to?",
+      "answerable": true,
+      "reference_answer": "Emma Reynolds",
+      "source_emails": ["email_085.txt"],
+      "notes": "Clean email. Tests recipient lookup by sender and topic. Note: River Bryant also appears as sender in email_031 (Client Feedback), testing disambiguation."
+    },
+    {
+      "id": "q16",
+      "query": "What subject did Logan West write to Oscar Cooper about?",
+      "answerable": true,
+      "reference_answer": "Project Update",
+      "source_emails": ["email_100.txt"],
+      "notes": "Clean email. Tests subject lookup given sender and recipient names."
+    },
+    {
+      "id": "q17",
+      "query": "Who did Drew Gibson request a deadline extension from?",
+      "answerable": true,
+      "reference_answer": "Finley Rodriguez",
+      "source_emails": ["email_022.txt"],
+      "notes": "Clean email. Tests recipient lookup by sender and topic."
+    },
+    {
+      "id": "q18",
+      "query": "What subject did Kate Hughes write to Wanda Owens about?",
+      "answerable": true,
+      "reference_answer": "Team Announcement",
+      "source_emails": ["email_009.txt"],
+      "notes": "NOISY EMAIL (mojibake encoding). Body text contains garbled multi-byte sequences where smart quotes and em-dashes appear as Windows-1252 artifacts. Headers remain intact and parseable."
+    },
+    {
+      "id": "q19",
+      "query": "Who sent a client feedback email to Yara Henderson?",
+      "answerable": true,
+      "reference_answer": "Peyton Jenkins",
+      "source_emails": ["email_018.txt"],
+      "notes": "NOISY EMAIL (truncated mid-sentence). The email body is cut off partway through. System must still retrieve and parse the intact headers."
+    },
+    {
+      "id": "q20",
+      "query": "Who sent a performance review email to Blake Simmons?",
+      "answerable": true,
+      "reference_answer": "Alice Lopez",
+      "source_emails": ["email_051.txt"],
+      "notes": "NOISY EMAIL (swapped header order: To: appears before From:). System must correctly identify the sender despite non-standard header ordering."
+    },
+    {
+      "id": "q21",
+      "query": "What is the email address of Tara Woods?",
+      "answerable": true,
+      "reference_answer": "tara.woods@enterprise.com",
+      "source_emails": ["email_001.txt"],
+      "notes": "Clean email. Tests email address extraction for a named sender."
+    },
+    {
+      "id": "q22",
+      "query": "Who did Gray Price send a training opportunity email to?",
+      "answerable": true,
+      "reference_answer": "Tara Gomez",
+      "source_emails": ["email_002.txt"],
+      "notes": "Clean email. Tests recipient lookup by sender and topic."
+    },
+    {
+      "id": "q23",
+      "query": "Who did Rowan Wood send a project update to?",
+      "answerable": true,
+      "reference_answer": "Wanda Owens",
+      "source_emails": ["email_004.txt"],
+      "notes": "Clean email. Tests recipient lookup by sender and topic."
+    },
+    {
+      "id": "q24",
+      "query": "What email domain does Sean Cox work at?",
+      "answerable": true,
+      "reference_answer": "enterprise.com",
+      "source_emails": ["email_005.txt"],
+      "notes": "Clean email. Tests domain extraction from sender address."
+    },
+    {
+      "id": "q25",
+      "query": "Who did Quincy Patterson send a team announcement to?",
+      "answerable": true,
+      "reference_answer": "Zack Moore",
+      "source_emails": ["email_006.txt"],
+      "notes": "Clean email. Tests recipient lookup by sender and topic."
+    },
+    {
+      "id": "q26",
+      "query": "What is River Stewart's email address?",
+      "answerable": true,
+      "reference_answer": "river.stewart@business.net",
+      "source_emails": ["email_007.txt"],
+      "notes": "Clean email. Tests email address extraction for a named sender."
+    },
+    {
+      "id": "q27",
+      "query": "Who did Hayden Stewart send a team announcement to?",
+      "answerable": true,
+      "reference_answer": "Reese Cooper",
+      "source_emails": ["email_010.txt"],
+      "notes": "Clean email. Tests recipient lookup by sender and topic."
+    },
+    {
+      "id": "q28",
+      "query": "Who sent a performance review email to Xara Phillips?",
+      "answerable": true,
+      "reference_answer": "Opal Morris",
+      "source_emails": ["email_011.txt"],
+      "notes": "Clean email. Tests sender lookup by recipient and topic."
+    },
+    {
+      "id": "q29",
+      "query": "What subject did Kane Kelly write to Wanda Turner about?",
+      "answerable": true,
+      "reference_answer": "Project Update",
+      "source_emails": ["email_012.txt"],
+      "notes": "Clean email. Tests subject lookup given sender and recipient names."
+    },
+    {
+      "id": "q30",
+      "query": "Who did Brandon Perry send a budget approval email to?",
+      "answerable": true,
+      "reference_answer": "Zack Carter",
+      "source_emails": ["email_013.txt"],
+      "notes": "Clean email. Tests recipient lookup by sender and topic."
+    },
+    {
+      "id": "q31",
+      "query": "What email domain does Jake Henderson work at?",
+      "answerable": true,
+      "reference_answer": "corp.org",
+      "source_emails": ["email_014.txt"],
+      "notes": "Clean email. Tests domain extraction from sender address."
+    },
+    {
+      "id": "q32",
+      "query": "Who did Penelope Harrison send a project update to?",
+      "answerable": true,
+      "reference_answer": "Anna Wright",
+      "source_emails": ["email_015.txt"],
+      "notes": "Clean email. Tests recipient lookup by sender and topic."
+    },
+    {
+      "id": "q33",
+      "query": "What is Dana Carter's email address?",
+      "answerable": true,
+      "reference_answer": "dana.carter@corp.org",
+      "source_emails": ["email_016.txt"],
+      "notes": "Clean email. Tests email address extraction for a named sender."
+    },
+    {
+      "id": "q34",
+      "query": "Who sent a project update to Zephyr Cooper?",
+      "answerable": true,
+      "reference_answer": "George Woods",
+      "source_emails": ["email_017.txt"],
+      "notes": "Clean email. Tests sender lookup by recipient and topic."
+    },
+    {
+      "id": "q35",
+      "query": "Who did Kane Kelly write to about client feedback?",
+      "answerable": true,
+      "reference_answer": "Wendy Mcdonald",
+      "source_emails": ["email_020.txt"],
+      "notes": "Clean email. Tests recipient lookup by sender and topic. Note: Kane Kelly appears as sender in multiple emails, testing disambiguation."
+    },
+    {
+      "id": "q36",
+      "query": "What is Ocean Murphy's email address?",
+      "answerable": true,
+      "reference_answer": "ocean.murphy@business.net",
+      "source_emails": ["email_021.txt"],
+      "notes": "Clean email. Tests email address extraction for a named sender."
+    },
+    {
+      "id": "q37",
+      "query": "Who did Penelope Anderson send a team announcement to?",
+      "answerable": true,
+      "reference_answer": "Brandon Perry",
+      "source_emails": ["email_023.txt"],
+      "notes": "Clean email. Tests recipient lookup by sender and topic."
+    },
+    {
+      "id": "q38",
+      "query": "What subject did Indigo Hughes write to Xavier Bennett about?",
+      "answerable": true,
+      "reference_answer": "Training Opportunity",
+      "source_emails": ["email_024.txt"],
+      "notes": "Clean email. Tests subject lookup given sender and recipient names."
+    },
+    {
+      "id": "q39",
+      "query": "What email domain does Maria Coleman work at?",
+      "answerable": true,
+      "reference_answer": "corp.org",
+      "source_emails": ["email_025.txt"],
+      "notes": "Clean email. Tests domain extraction from sender address."
+    },
+    {
+      "id": "q40",
+      "query": "Who sent a budget approval email to Penelope Harrison?",
+      "answerable": true,
+      "reference_answer": "Val Anderson",
+      "source_emails": ["email_026.txt"],
+      "notes": "Clean email. Tests sender lookup by recipient and topic."
+    },
+    {
+      "id": "q41",
+      "query": "What email domain does Uma Cole work at?",
+      "answerable": true,
+      "reference_answer": "corp.org",
+      "source_emails": ["email_027.txt"],
+      "notes": "Clean email. Tests domain extraction from recipient address."
+    },
+    {
+      "id": "q42",
+      "query": "Who did Hugo Phillips send a meeting request to?",
+      "answerable": true,
+      "reference_answer": "Iris Jones",
+      "source_emails": ["email_028.txt"],
+      "notes": "Clean email. Tests recipient lookup by sender and topic."
+    },
+    {
+      "id": "q43",
+      "query": "What subject did Quincy Patterson write to Xavier Wilson about?",
+      "answerable": true,
+      "reference_answer": "Performance Review",
+      "source_emails": ["email_029.txt"],
+      "notes": "Clean email. Tests subject lookup given sender and recipient names."
+    },
+    {
+      "id": "q44",
+      "query": "Who did Ian Medina report a technical issue to?",
+      "answerable": true,
+      "reference_answer": "George Woods",
+      "source_emails": ["email_032.txt"],
+      "notes": "Clean email. Tests recipient lookup by sender and topic."
+    },
+    {
+      "id": "q45",
+      "query": "What is Sasha Diaz's email address?",
+      "answerable": true,
+      "reference_answer": "sasha.diaz@business.net",
+      "source_emails": ["email_033.txt"],
+      "notes": "Clean email. Tests email address extraction for a named sender."
+    },
+    {
+      "id": "q46",
+      "query": "Who did Indigo Cruz report a technical issue to?",
+      "answerable": true,
+      "reference_answer": "Jack Morris",
+      "source_emails": ["email_034.txt"],
+      "notes": "Clean email. Tests recipient lookup by sender and topic."
+    },
+    {
+      "id": "q47",
+      "query": "Who sent a performance review email to Ivy Gutierrez?",
+      "answerable": true,
+      "reference_answer": "Gray Price",
+      "source_emails": ["email_036.txt"],
+      "notes": "Clean email. Tests sender lookup by recipient and topic. Note: Ivy Gutierrez also receives a training email (email_042), testing disambiguation."
+    },
+    {
+      "id": "q48",
+      "query": "Who sent a client feedback email to Brian Marshall?",
+      "answerable": true,
+      "reference_answer": "Brian Alvarez",
+      "source_emails": ["email_037.txt"],
+      "notes": "Clean email. Tests sender lookup by recipient. Both sender and recipient share the first name Brian, testing name disambiguation."
+    },
+    {
+      "id": "q49",
+      "query": "What is Yvonne Gutierrez's email address?",
+      "answerable": true,
+      "reference_answer": "yvonne.gutierrez@enterprise.com",
+      "source_emails": ["email_039.txt"],
+      "notes": "Clean email. Tests email address extraction for a named sender."
+    },
+    {
+      "id": "q50",
+      "query": "Who did Blake Simmons send a training opportunity email to?",
+      "answerable": true,
+      "reference_answer": "Catherine Ward",
+      "source_emails": ["email_041.txt"],
+      "notes": "Clean email. Tests recipient lookup by sender and topic. Note: Blake Simmons also appears as recipient (email_051) and sender of a meeting request (email_074)."
+    },
+    {
+      "id": "q51",
+      "query": "Who sent a training opportunity email to Ivy Gutierrez?",
+      "answerable": true,
+      "reference_answer": "Ellis Davis",
+      "source_emails": ["email_042.txt"],
+      "notes": "Clean email. Tests sender lookup by recipient and topic."
+    },
+    {
+      "id": "q52",
+      "query": "Who sent a performance review email to Nathan Gibson?",
+      "answerable": true,
+      "reference_answer": "Bella Myers",
+      "source_emails": ["email_043.txt"],
+      "notes": "Clean email. Tests sender lookup by recipient and topic."
+    },
+    {
+      "id": "q53",
+      "query": "Who did Cameron Lee send a vendor proposal to?",
+      "answerable": true,
+      "reference_answer": "Blair Kennedy",
+      "source_emails": ["email_046.txt"],
+      "notes": "Clean email. Tests recipient lookup by sender and topic."
+    },
+    {
+      "id": "q54",
+      "query": "What email domain does Yara Reyes work at?",
+      "answerable": true,
+      "reference_answer": "company.com",
+      "source_emails": ["email_047.txt"],
+      "notes": "Clean email. Tests domain extraction from sender address."
+    },
+    {
+      "id": "q55",
+      "query": "Who did Noah Martin request a deadline extension from?",
+      "answerable": true,
+      "reference_answer": "Parker Vasquez",
+      "source_emails": ["email_048.txt"],
+      "notes": "Clean email. Tests recipient lookup by sender and topic."
+    },
+    {
+      "id": "q56",
+      "query": "What email domain does Nathan Foster work at?",
+      "answerable": true,
+      "reference_answer": "corp.org",
+      "source_emails": ["email_049.txt"],
+      "notes": "Clean email. Tests domain extraction from recipient address. Note: Nathan Foster appears as recipient in two emails (email_049, email_057), both confirming corp.org."
+    },
+    {
+      "id": "q57",
+      "query": "Who did Helen Powell send a meeting request to?",
+      "answerable": true,
+      "reference_answer": "Nico Clark",
+      "source_emails": ["email_050.txt"],
+      "notes": "Clean email. Tests recipient lookup by sender and topic."
+    },
+    {
+      "id": "q58",
+      "query": "Who sent a performance review email to Kane Harris?",
+      "answerable": true,
+      "reference_answer": "Kyle Murphy",
+      "source_emails": ["email_052.txt"],
+      "notes": "Clean email. Tests sender lookup by recipient and topic."
+    },
+    {
+      "id": "q59",
+      "query": "Who sent a performance review to Tara Gomez?",
+      "answerable": true,
+      "reference_answer": "Sara Carter",
+      "source_emails": ["email_053.txt"],
+      "notes": "Clean email. Tests sender lookup by recipient and topic."
+    },
+    {
+      "id": "q60",
+      "query": "What subject did Hugo Richardson write to Nora Ellis about?",
+      "answerable": true,
+      "reference_answer": "Team Announcement",
+      "source_emails": ["email_054.txt"],
+      "notes": "Clean email. Tests subject lookup given sender and recipient names."
+    },
+    {
+      "id": "q61",
+      "query": "What email domain does Rita Butler work at?",
+      "answerable": true,
+      "reference_answer": "company.com",
+      "source_emails": ["email_055.txt"],
+      "notes": "Clean email. Tests domain extraction from sender address."
+    },
+    {
+      "id": "q62",
+      "query": "Who did Nick Lee send a meeting request to?",
+      "answerable": true,
+      "reference_answer": "Skyler Lee",
+      "source_emails": ["email_056.txt"],
+      "notes": "Clean email. Tests recipient lookup by sender and topic."
+    },
+    {
+      "id": "q63",
+      "query": "Who sent a performance review email to Nathan Foster?",
+      "answerable": true,
+      "reference_answer": "James Cooper",
+      "source_emails": ["email_057.txt"],
+      "notes": "Clean email. Tests sender lookup by recipient and topic."
+    },
+    {
+      "id": "q64",
+      "query": "What is Quinn Turner's email address?",
+      "answerable": true,
+      "reference_answer": "quinn.turner@business.net",
+      "source_emails": ["email_059.txt"],
+      "notes": "Clean email. Tests email address extraction for a named sender."
+    },
+    {
+      "id": "q65",
+      "query": "Who did Henry Howard send a training opportunity email to?",
+      "answerable": true,
+      "reference_answer": "Nia Gonzales",
+      "source_emails": ["email_060.txt"],
+      "notes": "Clean email. Tests recipient lookup by sender and topic."
+    },
+    {
+      "id": "q66",
+      "query": "Who did Zephyr Cooper send a project update to?",
+      "answerable": true,
+      "reference_answer": "Catherine Ward",
+      "source_emails": ["email_061.txt"],
+      "notes": "Clean email. Tests recipient lookup by sender and topic."
+    },
+    {
+      "id": "q67",
+      "query": "Who did Harold Phillips send a client feedback email to?",
+      "answerable": true,
+      "reference_answer": "Ethan Taylor",
+      "source_emails": ["email_062.txt"],
+      "notes": "Clean email. Tests recipient lookup by sender and topic."
+    },
+    {
+      "id": "q68",
+      "query": "Who did Felix Jordan send a training opportunity email to?",
+      "answerable": true,
+      "reference_answer": "Marley Jimenez",
+      "source_emails": ["email_064.txt"],
+      "notes": "Clean email. Tests recipient lookup by sender and topic. Note: Felix Jordan appears in multiple emails as sender."
+    },
+    {
+      "id": "q69",
+      "query": "Who sent a budget approval email to Ora Scott?",
+      "answerable": true,
+      "reference_answer": "Oliver Hall",
+      "source_emails": ["email_066.txt"],
+      "notes": "Clean email. Tests sender lookup by recipient and topic."
+    },
+    {
+      "id": "q70",
+      "query": "Who did Hayden Stewart report a technical issue to?",
+      "answerable": true,
+      "reference_answer": "Quinn Turner",
+      "source_emails": ["email_067.txt"],
+      "notes": "Clean email. Tests recipient lookup by sender and topic."
+    },
+    {
+      "id": "q71",
+      "query": "Who sent a client feedback email to Sean Cox?",
+      "answerable": true,
+      "reference_answer": "Mia Harris",
+      "source_emails": ["email_038.txt"],
+      "notes": "NOISY EMAIL (missing From: header field). The sender's name appears only in the email sign-off. System must infer sender identity from body text when the header is absent."
+    },
+    {
+      "id": "q72",
+      "query": "Who did Sean Jackson send a team announcement to?",
+      "answerable": true,
+      "reference_answer": "Jack Morris",
+      "source_emails": ["email_063.txt"],
+      "notes": "NOISY EMAIL (missing greeting line). The email body starts directly without a salutation. Headers remain intact."
+    },
+    {
+      "id": "q73",
+      "query": "What subject did Indigo Hughes write to Jack Morris about?",
+      "answerable": true,
+      "reference_answer": "Project Update",
+      "source_emails": ["email_058.txt"],
+      "notes": "NOISY EMAIL (scattered typos throughout the body). System must parse headers correctly despite heavy misspellings in the body text."
+    },
+    {
+      "id": "q74",
+      "query": "Who sent a vendor proposal to Logan West?",
+      "answerable": true,
+      "reference_answer": "Nia Kelly",
+      "source_emails": ["email_072.txt"],
+      "notes": "NOISY EMAIL (duplicate Subject: and From: header lines plus replacement characters in body). System must handle redundant headers and garbled body text."
+    },
+    {
+      "id": "q75",
+      "query": "Who did Gray Price send a budget approval to?",
+      "answerable": true,
+      "reference_answer": "Kate Hughes",
+      "source_emails": ["email_093.txt"],
+      "notes": "NOISY EMAIL (Subject line prefixed with [EXTERNAL][BULK] tags). System must correctly classify the email topic and parse the recipient despite the noisy subject line."
+    },
+    {
+      "id": "q76",
+      "query": "What specific dollar amount is requested in Felix Jordan's budget approval email to Yvonne Griffin?",
+      "answerable": false,
+      "reference_answer": null,
+      "source_emails": ["email_003.txt"],
+      "notes": "UNANSWERABLE. The email discusses a budget proposal but mentions no specific figures. A correct system should state the information is not available."
+    },
+    {
+      "id": "q77",
+      "query": "What exact date is the professional development workshop scheduled for?",
+      "answerable": false,
+      "reference_answer": null,
+      "source_emails": [],
+      "notes": "UNANSWERABLE. All training emails say only 'next month' with no specific date. A correct system should state the information is not available."
+    },
+    {
+      "id": "q78",
+      "query": "What is the name of the vendor company mentioned in Thomas Chavez's proposal to Felix Rivera?",
+      "answerable": false,
+      "reference_answer": null,
+      "source_emails": ["email_030.txt"],
+      "notes": "UNANSWERABLE. The email discusses a vendor proposal but never names the vendor. A correct system should state the information is not available."
+    },
+    {
+      "id": "q79",
+      "query": "What specific error code or log entry is mentioned in Brian Marshall's technical issue report?",
+      "answerable": false,
+      "reference_answer": null,
+      "source_emails": ["email_019.txt"],
+      "notes": "UNANSWERABLE. The email mentions an incident report with error logs was created, but no error codes or log content appear in the email itself."
+    },
+    {
+      "id": "q80",
+      "query": "What is the revised deadline proposed in Nathan Gibson's extension request to Rachel Hill?",
+      "answerable": false,
+      "reference_answer": null,
+      "source_emails": ["email_008.txt"],
+      "notes": "UNANSWERABLE. The email requests a deadline extension and mentions 'a few more days' but provides no specific revised date."
+    },
+    {
+      "id": "q81",
+      "query": "What is the name of the client who provided positive feedback in Wendy Mcdonald's email to Kane Harris?",
+      "answerable": false,
+      "reference_answer": null,
+      "source_emails": ["email_035.txt"],
+      "notes": "UNANSWERABLE. The email refers only to 'our client' without naming them."
+    },
+    {
+      "id": "q82",
+      "query": "What are the specific agenda items in Jake Henderson's meeting request to Val Wilson?",
+      "answerable": false,
+      "reference_answer": null,
+      "source_emails": ["email_014.txt"],
+      "notes": "UNANSWERABLE. The email says a presentation covering 'key achievements, current challenges, and proposed solutions' is prepared, but no specific agenda items are listed."
+    },
+    {
+      "id": "q83",
+      "query": "How many team members are affected by the restructuring in Hayden Stewart's announcement to Reese Cooper?",
+      "answerable": false,
+      "reference_answer": null,
+      "source_emails": ["email_010.txt"],
+      "notes": "UNANSWERABLE. The email announces team restructuring but gives no headcount."
+    },
+    {
+      "id": "q84",
+      "query": "What specific budget amount did Sara Carter request from Uma Cole?",
+      "answerable": false,
+      "reference_answer": null,
+      "source_emails": ["email_027.txt"],
+      "notes": "UNANSWERABLE. The email requests budget approval but mentions no dollar figures."
+    },
+    {
+      "id": "q85",
+      "query": "What specific production system experienced the technical issue Ian Medina reported to George Woods?",
+      "answerable": false,
+      "reference_answer": null,
+      "source_emails": ["email_032.txt"],
+      "notes": "UNANSWERABLE. The email refers to 'the production system' without naming a specific application or service."
+    },
+    {
+      "id": "q86",
+      "query": "What is the name of the certification or qualification awarded by the training workshop Joy King mentions?",
+      "answerable": false,
+      "reference_answer": null,
+      "source_emails": ["email_078.txt"],
+      "notes": "UNANSWERABLE. The email describes a professional development workshop but names no certification."
+    },
+    {
+      "id": "q87",
+      "query": "What is Brian Marshall's phone number?",
+      "answerable": false,
+      "reference_answer": null,
+      "source_emails": [],
+      "notes": "UNANSWERABLE. No phone numbers appear anywhere in the dataset."
+    },
+    {
+      "id": "q88",
+      "query": "What specific integration challenge is described in Rowan Wood's project update to Wanda Owens?",
+      "answerable": false,
+      "reference_answer": null,
+      "source_emails": ["email_004.txt"],
+      "notes": "UNANSWERABLE. The email mentions challenges 'with the integration phase' but gives no technical specifics."
+    },
+    {
+      "id": "q89",
+      "query": "What day of the week is the team meeting scheduled for in Gray Castro's announcement to Finley Patterson?",
+      "answerable": false,
+      "reference_answer": null,
+      "source_emails": ["email_075.txt"],
+      "notes": "UNANSWERABLE. The email says the meeting is 'next week' with no specific day."
+    },
+    {
+      "id": "q90",
+      "query": "What is the name of the vendor whose support team Carter Ward is coordinating with?",
+      "answerable": false,
+      "reference_answer": null,
+      "source_emails": ["email_045.txt"],
+      "notes": "UNANSWERABLE. The email mentions coordinating with 'the vendor's support team' but does not name the vendor."
+    },
+    {
+      "id": "q91",
+      "query": "What specific performance metrics are reviewed in Blake Simmons's meeting request to Andrew Peterson?",
+      "answerable": false,
+      "reference_answer": null,
+      "source_emails": ["email_074.txt"],
+      "notes": "UNANSWERABLE. The email mentions reviewing 'performance metrics' but names none specifically."
+    },
+    {
+      "id": "q92",
+      "query": "What new titles or roles will be created in the restructuring Penelope Harrison announces to Caleb Allen?",
+      "answerable": false,
+      "reference_answer": null,
+      "source_emails": ["email_077.txt"],
+      "notes": "UNANSWERABLE. The email announces team restructuring but lists no new job titles."
+    },
+    {
+      "id": "q93",
+      "query": "What is Val Anderson's phone number?",
+      "answerable": false,
+      "reference_answer": null,
+      "source_emails": [],
+      "notes": "UNANSWERABLE. No phone numbers appear anywhere in the dataset."
+    },
+    {
+      "id": "q94",
+      "query": "What location or video conference link does Hugo Phillips include in his meeting request to Iris Jones?",
+      "answerable": false,
+      "reference_answer": null,
+      "source_emails": ["email_028.txt"],
+      "notes": "UNANSWERABLE. The email requests a meeting but provides no location, room number, or video link."
+    },
+    {
+      "id": "q95",
+      "query": "What specific technical topics are covered in the workshop Carter Ward recommends to Andrew Peterson?",
+      "answerable": false,
+      "reference_answer": null,
+      "source_emails": ["email_065.txt"],
+      "notes": "UNANSWERABLE. The email describes the workshop as covering 'advanced techniques in our field' with no specific subject matter."
+    },
+    {
+      "id": "q96",
+      "query": "How many days of extension does Noah Martin request from Parker Vasquez?",
+      "answerable": false,
+      "reference_answer": null,
+      "source_emails": ["email_048.txt"],
+      "notes": "UNANSWERABLE. The email says 'a few more days' with no specific count."
+    },
+    {
+      "id": "q97",
+      "query": "What specific revenue or performance target is discussed in Nick Lee's meeting request to Skyler Lee?",
+      "answerable": false,
+      "reference_answer": null,
+      "source_emails": ["email_056.txt"],
+      "notes": "UNANSWERABLE. The email mentions reviewing performance metrics and strategy but names no specific targets."
+    },
+    {
+      "id": "q98",
+      "query": "What is the name of the client mentioned in Reese Cooper's feedback email to Noah Sullivan?",
+      "answerable": false,
+      "reference_answer": null,
+      "source_emails": ["email_084.txt"],
+      "notes": "UNANSWERABLE. The email refers to 'our client' throughout without ever naming them."
+    },
+    {
+      "id": "q99",
+      "query": "What specific team names or new divisions are announced in Quinn Turner's team announcement to Ian Morgan?",
+      "answerable": false,
+      "reference_answer": null,
+      "source_emails": ["email_059.txt"],
+      "notes": "UNANSWERABLE. The email announces restructuring but names no new teams or divisions."
+    },
+    {
+      "id": "q100",
+      "query": "What specific new equipment is listed in Jake Henderson's budget approval request to Ian Medina?",
+      "answerable": false,
+      "reference_answer": null,
+      "source_emails": ["email_096.txt"],
+      "notes": "UNANSWERABLE. The email mentions budget provisions for 'new equipment' but lists no specific items."
+    }
+  ]
+}

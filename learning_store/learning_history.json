@@ -1,0 +1,139 @@
+{
+  "cycles": [
+    {
+      "cycle": 1,
+      "timestamp": "2026-03-28T13:46:52.885688",
+      "metrics_before": {
+        "recall_at_5": 1.0,
+        "accuracy": 1.0,
+        "hallucination_rate": 0.0,
+        "total_queries": 100,
+        "answerable_count": 75,
+        "unanswerable_count": 25
+      },
+      "metrics_after": {
+        "recall_at_5": 1.0,
+        "accuracy": 1.0,
+        "hallucination_rate": 0.0,
+        "total_queries": 100,
+        "answerable_count": 75,
+        "unanswerable_count": 25
+      },
+      "deltas": {
+        "recall_delta": 0.0,
+        "accuracy_delta": 0.0,
+        "hallucination_delta": 0.0
+      },
+      "patterns_found": 1,
+      "pattern_types": [
+        "RANKING_NEAR_MISS"
+      ],
+      "actions_applied": [
+        {
+          "action": "TUNE_RRF_K",
+          "applied": true,
+          "description": "Adjusted RRF k from 60 to 40",
+          "old_value": 60,
+          "new_value": 40,
+          "pattern": "RANKING_NEAR_MISS"
+        }
+      ],
+      "improved": true
+    },
+    {
+      "cycle": 1,
+      "timestamp": "2026-03-28T13:49:54.530951",
+      "metrics_before": {
+        "recall_at_5": 1.0,
+        "accuracy": 1.0,
+        "hallucination_rate": 0.0,
+        "total_queries": 100,
+        "answerable_count": 75,
+        "unanswerable_count": 25
+      },
+      "metrics_after": {
+        "recall_at_5": 1.0,
+        "accuracy": 1.0,
+        "hallucination_rate": 0.0,
+        "total_queries": 100,
+        "answerable_count": 75,
+        "unanswerable_count": 25
+      },
+      "deltas": {
+        "recall_delta": 0.0,
+        "accuracy_delta": 0.0,
+        "hallucination_delta": 0.0
+      },
+      "patterns_found": 1,
+      "pattern_types": [
+        "RANKING_NEAR_MISS"
+      ],
+      "actions_applied": [
+        {
+          "action": "TUNE_RRF_K",
+          "applied": true,
+          "description": "Adjusted RRF k from 60 to 40",
+          "old_value": 60,
+          "new_value": 40,
+          "pattern": "RANKING_NEAR_MISS"
+        }
+      ],
+      "improved": true
+    },
+    {
+      "cycle": 1,
+      "timestamp": "2026-03-28T13:55:24.649506",
+      "active_strategy": "9_parent_child",
+      "strategy_switched": false,
+      "metrics_before": {
+        "recall_at_5": 1.0,
+        "accuracy": 1.0,
+        "hallucination_rate": 0.0,
+        "total": 100,
+        "answerable_n": 75,
+        "unanswerable_n": 25
+      },
+      "metrics_after": {
+        "recall_at_5": 1.0,
+        "accuracy": 1.0,
+        "hallucination_rate": 0.0,
+        "total": 100,
+        "answerable_n": 75,
+        "unanswerable_n": 25
+      },
+      "deltas": {
+        "recall": 0.0,
+        "accuracy": 0.0,
+        "hallucination": 0.0
+      },
+      "patterns": [
+        {
+          "type": "RANKING_FRAGILE",
+          "severity": "low",
+          "count": 3
+        }
+      ],
+      "fixes_applied": [
+        {
+          "action": "TUNE_RRF_K:40",
+          "applied": true,
+          "type": "param_tune",
+          "description": "RRF k: 60 -> 40",
+          "param": "rrf_k",
+          "old": 60,
+          "new": 40
+        }
+      ],
+      "improved": false
+    }
+  ],
+  "total_improvements": 0,
+  "best_metrics": {
+    "recall_at_5": 1.0,
+    "accuracy": 1.0,
+    "hallucination_rate": 0.0,
+    "total_queries": 100,
+    "answerable_count": 75,
+    "unanswerable_count": 25
+  }
+}
